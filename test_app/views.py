@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from .models import Blog, Car 
+from django_seed import Seed
 
-# Create your views here.
+car_names = ("Mercedes", "Toyota", "Audu", "Honday", "Nissan", )
+
+seeder = Seed.seeder()
+
+seeder.add_entity(Blog, 20)
+
+def execute():
+    seeder.execute()
+    print("seeding completed")

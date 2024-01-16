@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import config 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'test_app',
     'rest_framework',
+    'django_seed',
     'debug_toolbar',
+    
 ]
 
 MIDDLEWARE = [
@@ -81,6 +84,12 @@ WSGI_APPLICATION = 'django_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DB_NAME = config("NAME")
+DB_USER = config("DB_USER")
+DB_PASSWORD = config("PASSWORD")
+DB_HOST = config("HOST")
+DB_PORT = config("PORT")
+
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -89,12 +98,21 @@ DATABASES = {
     
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'testdb',
-        'USER': 'admin',
-        'PASSWORD': 'zHKHYttDKVCoSZRB',
-        'HOST': '127.0.0.1',
-        'PORT': '20432'
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT
     }
+
+    #     'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'testdb',
+    #     'USER': 'admin',
+    #     'PASSWORD': 'zHKHYttDKVCoSZRB',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '20432'
+    # }
 
 }
 
