@@ -1,0 +1,3 @@
+THIS IS HOW THE PROJECT WORKS
+
+First, you start up the docker, by running the command, "docker compose up", then start up the server by running the command "python manage.py runserver"
