@@ -9,6 +9,9 @@ router = DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include("auth_user.urls")),
+    path('task/', include("task.urls"))
+
 ]
 
 if settings.DEBUG:

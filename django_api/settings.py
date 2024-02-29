@@ -38,12 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'test_app',
+    'user',
+    'auth_user',
+    'task',
     'rest_framework',
     'django_seed',
     'debug_toolbar',
-    
 ]
+
+AUTH_USER_MODEL = "user.CustomUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -91,19 +94,19 @@ DB_HOST = config("HOST")
 DB_PORT = config("PORT")
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    
-        'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    
+    #     'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': DB_NAME,
+    #     'USER': DB_USER,
+    #     'PASSWORD': DB_PASSWORD,
+    #     'HOST': DB_HOST,
+    #     'PORT': DB_PORT
+    # }
 
     #     'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -157,3 +160,32 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
+
+
+CACHES = {
+    'default': {
+        # 'BACKEND': 'django_redis.cache.RedisCache',
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1', 
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+CELERY_BROKER_URL = config("CELERY_BROKER_URL")
+# CELERY_RESULT_BACKEND = config("CELERY_BROKER_URL")
+
+# BROKER_HOST = "localhost"
+# BROKER_PORT = 5672
+# BROKER_USER = "rabbit_user"
+# BROKER_PASSWORD = "rabbit123"
+# BROKER_VHOST = "myvhost"
+
+
+# CELERY_RESULT_BACKEND = "amqp"

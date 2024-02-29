@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  rabbitmq:
+    container_name: rabbitmq_container
+    image: rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbit_user 
+      - RABBITMQ_DEFAULT_PASS=rabbit123
+    ports:
+      - "5672:5672"
+    networks:
+      - rabbit
+    restart: unless-stopped
+
+  redis:
+    image: redis
+    container_name: smartTechnology_redis
+    restart: always
+    ports:
+      - 6379:6379
+
+
+networks:
+  rabbit:
+    driver: bridge
